@@ -1,14 +1,13 @@
-import streamlit as st
-import joblib
-
-model = joblib.load("model.pkl")
-tfidf = joblib.load("tfidf.pkl")
-
-st.title("Disease Prediction from Symptoms")
-
-text = st.text_area("Describe your symptoms:")
+import numpy as np
 
 if st.button("Predict"):
     X = tfidf.transform([text])
-    pred = model.predict(X)[0]
-    st.success(pred)
+    
+    scores = clf.decision_function(X)[0]
+    classes = clf.classes_
+    
+    top3 = np.argsort(scores)[-3:][::-1]
+    
+    st.subheader("Top Predictions")
+    for i in top3:
+        st.write(f"{classes[i]}  (score: {scores[i]:.2f})")
