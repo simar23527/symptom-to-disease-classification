@@ -1,4 +1,5 @@
 import numpy as np
+import streamlit as st
 
 if st.button("Predict"):
     X = tfidf.transform([text])
@@ -11,3 +12,4 @@ if st.button("Predict"):
     st.subheader("Top Predictions")
     for i in top3:
         st.write(f"{classes[i]}  (score: {scores[i]:.2f})")
+
